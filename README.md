@@ -1,0 +1,2 @@
+# StreamDeck SMS Automation
+ StreamDeck SMS Automation is a Python project that allows users to send SMS messages using the Stream Deck, a popular customizable hardware interface for controlling various software applications. The project uses the Twilio API to send the SMS messages and includes a Flask server for receiving HTTP POST requests from the Stream Deck. The project also includes unit tests for ensuring the functionality of the code.
