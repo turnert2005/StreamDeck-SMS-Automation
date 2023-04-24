@@ -12,7 +12,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.RECIPIENT_PHONE_NUMBER, 'test_recipient_number')
         self.assertEqual(config.FLASK_SERVER_HOST, '127.0.0.1')
         self.assertEqual(config.FLASK_SERVER_PORT, 5000)
-        self.assertEqual(config.WAIT_FOR_SERVER_TO_START, 5)
+self.assertEqual(config.WAIT_FOR_SERVER_TO_START, 5)
 
-if __name__ == '__main__':
-    unittest.main()
+if name == 'main':
+unittest.main()

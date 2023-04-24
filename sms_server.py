@@ -2,8 +2,8 @@
 
 from flask import Flask, request, jsonify
 from twilio.rest import Client
+import phonenumbers
 from config import *
-import re
 
 app = Flask(__name__)
 
@@ -15,7 +15,11 @@ client = create_twilio_client()
 
 # Function to validate phone numbers
 def is_valid_phone_number(number):
-    return re.fullmatch(r'^\+\d{1,3}\d{1,14}$', number)
+    try:
+        parsed_number = phonenumbers.parse(number, None)
+        return phonenumbers.is_valid_number(parsed_number)
+    except phonenumbers.NumberParseException:
+        return False
 
 # Route for sending SMS
 @app.route('/send_sms', methods=['POST'])
@@ -40,5 +44,8 @@ def send_sms():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+def create_app():
+    return app
+
 if __name__ == '__main__':
-    app.run(host=FLASK_SERVER_HOST, port=FLASK_SERVER_PORT)
+    app.run(host=SERVER_HOST, port=SERVER_PORT)

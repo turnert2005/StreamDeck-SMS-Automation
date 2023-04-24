@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from sms_server import is_valid_phone_number, send_sms, twilio_client
+from sms_server import is_valid_phone_number, send_sms, client as twilio_client
 
 class TestSMSServer(unittest.TestCase):
     def test_is_valid_phone_number(self):

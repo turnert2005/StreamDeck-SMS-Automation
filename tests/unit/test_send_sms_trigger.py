@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import patch
 import send_sms_trigger
 
-
 class TestSendSMSTrigger(unittest.TestCase):
     def test_is_server_running(self):
         send_sms_trigger.server_started = False
@@ -21,7 +20,6 @@ class TestSendSMSTrigger(unittest.TestCase):
                 'Body': 'This is a test message from Stream Deck!'
             }
         )
-
 
 if __name__ == '__main__':
     unittest.main()

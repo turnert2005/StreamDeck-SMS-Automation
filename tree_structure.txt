@@ -1,0 +1,25 @@
+Folder PATH listing for volume 970 EVO
+Volume serial number is 844C-C7E7
+C:.
+|   .env
+|   .gitattributes
+|   config.py
+|   dependencies.py
+|   main.py
+|   README.md
+|   sms_server.py
+|   TESTING_INSTRUCTIONS.md
+|   tree_structure.txt
+|   
++---modules
+|       send_sms_trigger.py
+|       
++---static
+\---tests
+    +---integration
+    +---test_output
+    \---unit
+            test_config.py
+            test_send_sms_trigger.py
+            test_sms_server.py
+            
