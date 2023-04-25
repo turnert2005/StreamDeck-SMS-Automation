@@ -1,5 +1,3 @@
-Of course! You can create a file named `TESTING_INSTRUCTIONS.md` in your project directory to store the detailed instructions for running the unit tests. Here are the instructions:
-
 ---
 
 # Testing Instructions
@@ -24,6 +22,8 @@ These test files correspond to the Python modules:
 - `sms_server.py`
 - `send_sms_trigger.py`
 
+Additionally, there is a new file named `dependencies.py` that checks and installs required packages.
+
 ## Running Tests
 
 To run the tests, follow these steps:
@@ -32,7 +32,13 @@ To run the tests, follow these steps:
 
 2. Navigate to the project directory where the test files and Python modules are located.
 
-3. Run all test files by executing the following command:
+3. Before running the tests, ensure you have installed the required packages by running:
+
+   ```
+   python dependencies.py
+   ```
+
+4. Run all test files by executing the following command:
 
    ```
    python -m unittest discover
@@ -40,7 +46,7 @@ To run the tests, follow these steps:
 
    This command will discover and run all the test files in your project directory that match the pattern `test*.py`.
 
-4. Alternatively, you can run individual test files by executing the command:
+5. Alternatively, you can run individual test files by executing the command:
 
    ```
    python test_sms_server.py
@@ -48,9 +54,9 @@ To run the tests, follow these steps:
 
    Make sure to replace `test_sms_server.py` with the name of the test file you want to run.
 
-5. After running the tests, you will see the results in your terminal or command prompt, which will show you how many tests have passed and if any have failed.
+6. After running the tests, you will see the results in your terminal or command prompt, which will show you how many tests have passed and if any have failed.
 
-6. If any tests fail, you should examine the error messages and modify your code accordingly to fix the issues.
+7. If any tests fail, you should examine the error messages and modify your code accordingly to fix the issues.
 
 ## Benefits of Testing
 
