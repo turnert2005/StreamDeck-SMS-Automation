@@ -1,25 +1,26 @@
 import unittest
-from unittest.mock import patch
-import send_sms_trigger
+from unittest.mock import patch, MagicMock
+import main
 
 class TestSendSMSTrigger(unittest.TestCase):
     def test_is_server_running(self):
-        send_sms_trigger.server_started = False
-        self.assertFalse(send_sms_trigger.is_server_running())
+        main.server_started = False
+        self.assertFalse(main.is_server_running())
 
     @patch('requests.post')
     def test_send_sms(self, mock_post):
         mock_post.return_value.status_code = 200
-        send_sms_trigger.send_sms('test_twilio_phone_number', 'test_recipient_phone_number')
+        response = main.send_sms()
         mock_post.assert_called_once_with(
-            'https://api.twilio.com/2010-04-01/Accounts/test_twilio_account_sid/Messages.json',
-            auth=('test_twilio_account_sid', 'test_twilio_auth_token'),
+            f"https://api.twilio.com/2010-04-01/Accounts/{main.config.TWILIO_ACCOUNT_SID}/Messages.json",
+            auth=(main.config.TWILIO_ACCOUNT_SID, main.config.TWILIO_AUTH_TOKEN),
             data={
-                'From': 'test_twilio_phone_number',
-                'To': 'test_recipient_phone_number',
-                'Body': 'This is a test message from Stream Deck!'
+                'From': main.config.TWILIO_PHONE_NUMBER,
+                'To': main.config.RECIPIENT_PHONE_NUMBER,
+                'Body': 'I Love you Heather'
             }
         )
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()

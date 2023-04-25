@@ -12,3 +12,6 @@ def check_required_packages():
         print("Installing missing packages...")
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', *missing_packages], stdout=subprocess.DEVNULL)
         print("Packages installed.")
+
+if __name__ == '__main__':
+    check_required_packages()

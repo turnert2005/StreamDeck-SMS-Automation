@@ -1,24 +1,24 @@
-import unittest
-from unittest.mock import patch, MagicMock
-from sms_server import is_valid_phone_number, send_sms, client as twilio_client
+from unittest import TestCase
+from unittest.mock import patch
+import config
+from main import send_sms
 
-class TestSMSServer(unittest.TestCase):
-    def test_is_valid_phone_number(self):
-        self.assertTrue(is_valid_phone_number('+1234567890'))
-        self.assertFalse(is_valid_phone_number('1234567890'))
-        self.assertFalse(is_valid_phone_number('123 456 7890'))
-
-    @patch('sms_server.TWILIO_PHONE_NUMBER', 'test_twilio_number')
-    @patch.object(twilio_client.messages, 'create')
-    def test_send_sms(self, mock_create):
-        mock_create.return_value = MagicMock()
-        response = send_sms('+1234567890', 'test message')
-        mock_create.assert_called_once_with(
-            body='test message',
-            from_='test_twilio_number',
-            to='+1234567890'
+class TestSendSms(TestCase):
+    @patch('config.TWILIO_PHONE_NUMBER', 'test_twilio_number')
+    @patch('config.TWILIO_ACCOUNT_SID', 'test_twilio_account_sid')
+    @patch('config.TWILIO_AUTH_TOKEN', 'test_twilio_auth_token')
+    @patch('config.RECIPIENT_PHONE_NUMBER', 'test_recipient_phone_number')
+    @patch('main.requests.post')
+    def test_send_sms(self, mock_post):
+        mock_post.return_value.status_code = 200
+        response = send_sms()
+        mock_post.assert_called_once_with(
+            f'https://api.twilio.com/2010-04-01/Accounts/test_twilio_account_sid/Messages.json',
+            auth=('test_twilio_account_sid', 'test_twilio_auth_token'),
+            data={
+                'From': 'test_twilio_number',
+                'To': 'test_recipient_phone_number',
+                'Body': 'I Love you Heather'
+            }
         )
         self.assertEqual(response.status_code, 200)
-
-if __name__ == '__main__':
-    unittest.main()
